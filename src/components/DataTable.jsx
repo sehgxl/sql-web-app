@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
-import { Table, Menu } from "antd";
+import { Table, Menu, notification, Tag } from "antd";
 import { capitalize } from "lodash";
 import { useQuery } from "react-query";
 import ErrorCard from "./ErrorCard";
 import { CopyOutlined } from "@ant-design/icons";
-import { notification } from "antd";
 import { createContext } from "react";
 
 const defaultColumns = ["ID", "Price", "Title", "Brand", "Stock"];
@@ -64,7 +63,7 @@ const DataTable = ({ url, menuTabs, setURL }) => {
           key: item,
           render: () => (
             <div
-              className=" w-[6ch] hover:cursor-pointer hover:scale-150 hover:rotate-12 pl-5 delay-[50] transition ease-linear"
+              className="w-[6ch] hover:cursor-pointer hover:scale-150 hover:rotate-12 pl-5 delay-[50] transition ease-linear"
               onClick={(e) => pasteInClipboard(e)}
             >
               <CopyOutlined className="scale-125 pointer-events-none" />
@@ -78,7 +77,7 @@ const DataTable = ({ url, menuTabs, setURL }) => {
           title: capitalize(item),
           dataIndex: item,
           key: item,
-          render: (text) => <div className="w-[6ch]">{text}</div>,
+          render: (text) => <Tag color="blue">{text}</Tag>,
           fixed: "left",
         };
       } else
