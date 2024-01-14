@@ -53,6 +53,7 @@ const DataTable = ({ url, menuTabs, setURL, isSelectOpen }) => {
 
   const pasteInClipboard = (e) => {
     const id = e.target.parentElement.nextSibling.innerText;
+    navigator.clipboard.writeText(id);
     openNotification(id);
   };
 
