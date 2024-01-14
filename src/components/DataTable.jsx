@@ -9,19 +9,19 @@ import { createContext } from "react";
 
 const defaultColumns = ["ID", "Price", "Title", "Brand", "Stock"];
 
-const Context = createContext({
+const NotifContext = createContext({
   name: "Default",
 });
 
 const DataTable = ({ url, menuTabs, setURL }) => {
   const addKeyToData = (data) => {
-    return data?.map((item, index) => ({
-      key: index,
+    return data?.map((item) => ({
+      key: item.id,
       ...item,
     }));
   };
 
-  const [api, contextHolder] = notification.useNotification({
+  const [notifAPI, notifContextHolder] = notification.useNotification({
     stack: {
       threshold: 1,
     },
@@ -29,12 +29,12 @@ const DataTable = ({ url, menuTabs, setURL }) => {
 
   const openNotification = (text) => {
     text
-      ? api.success({
+      ? notifAPI.success({
           message: `ID  ${text} copied to your clipboard.`,
           placement: "bottomLeft",
           duration: 1.5,
         })
-      : api.error({
+      : notifAPI.error({
           message: `Could not copy id, something went wrong.`,
           placement: "bottomLeft",
           duration: 4,
@@ -112,8 +112,8 @@ const DataTable = ({ url, menuTabs, setURL }) => {
   }
 
   return (
-    <Context.Provider>
-      {contextHolder}
+    <NotifContext.Provider>
+      {notifContextHolder}
       <Table
         title={() => (
           <Menu
@@ -132,7 +132,7 @@ const DataTable = ({ url, menuTabs, setURL }) => {
         columns={getColumns(data)}
         dataSource={addKeyToData(data?.products)}
       />
-    </Context.Provider>
+    </NotifContext.Provider>
   );
 };
 
