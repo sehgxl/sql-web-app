@@ -41,7 +41,7 @@ function App() {
     },
   ]);
 
-  const [productCount, setProductCount] = useState(0);
+  const [productCount, setProductCount] = useState(10);
 
   return (
     <AppWrapper>

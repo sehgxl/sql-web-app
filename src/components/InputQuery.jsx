@@ -45,7 +45,7 @@ const InputQuery = ({
       },
     ]);
 
-    setProductCount((prev) => prev + 10);
+    setProductCount((prev) => (prev + 10) % 100);
 
     setTimeout(() => {
       inputRef.current?.focus();
