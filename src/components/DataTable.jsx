@@ -48,12 +48,13 @@ const DataTable = ({ url, menuTabs, setURL }) => {
   };
 
   const getColumns = (data) => {
-    let columns = ["Action"];
+    let columns = "Action";
 
     const fetchedColumns = data?.products[0]
       ? Object.keys(data?.products[0])
       : defaultColumns;
-    columns = [...columns, ...fetchedColumns];
+
+    columns = [columns, ...fetchedColumns];
 
     return columns?.map((item, index) => {
       if (index === 0) {
