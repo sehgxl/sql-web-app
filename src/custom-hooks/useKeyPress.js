@@ -1,12 +1,9 @@
 import { useEffect } from "react";
 
-const useKeyPress = (buttonRef) => {
+const useKeyPress = (handleFunction) => {
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === "ð") {
-        event.preventDefault();
-        buttonRef.current.click();
-      }
+      handleFunction(event);
     };
 
     document.addEventListener("keydown", handleKeyDown);
@@ -14,7 +11,7 @@ const useKeyPress = (buttonRef) => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [handleFunction]);
 };
 
 export default useKeyPress;

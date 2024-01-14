@@ -15,8 +15,13 @@ const NotifContext = createContext({
 
 const DataTable = ({ url, menuTabs, setURL }) => {
   const downloadBtnRef = useRef();
-
-  useKeyPress(downloadBtnRef);
+  const keyPressDownload = (event) => {
+    if (event.key === "ð") {
+      event.preventDefault();
+      downloadBtnRef.current.click();
+    }
+  };
+  useKeyPress(keyPressDownload);
 
   const addKeyToData = (data) => {
     return data?.map((item) => ({
