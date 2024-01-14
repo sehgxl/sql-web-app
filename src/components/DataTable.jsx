@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Table, Menu, notification, Tag } from "antd";
+import { Table, Menu, notification, Tag, Button, Divider } from "antd";
 import { capitalize } from "lodash";
 import { useQuery } from "react-query";
 import ErrorCard from "./ErrorCard";
@@ -116,12 +116,23 @@ const DataTable = ({ url, menuTabs, setURL }) => {
       {notifContextHolder}
       <Table
         title={() => (
-          <Menu
-            onClick={onTabClick}
-            selectedKeys={[url]}
-            mode="horizontal"
-            items={menuTabs}
-          />
+          <div className="flex items-center gap-2">
+            <Menu
+              className="flex-grow"
+              onClick={onTabClick}
+              selectedKeys={[url]}
+              mode="horizontal"
+              items={menuTabs}
+            />
+            <Button
+              href={`data:text/json;charset=utf-8,${encodeURIComponent(
+                JSON.stringify(data?.products, null, 2)
+              )}`}
+              className="flex-grow-0"
+            >
+              Download
+            </Button>
+          </div>
         )}
         scroll={{ x: true, y: "60vh" }}
         pagination={{
