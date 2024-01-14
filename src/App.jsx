@@ -12,18 +12,20 @@ const AppWrapper = ({ children }) => {
 };
 
 function App() {
-  const [url, setURL] = useState("https://dummyjson.com/products?&limit=0");
+  const getAllDataURL = "https://dummyjson.com/products?&limit=0";
+
+  const [url, setURL] = useState(getAllDataURL);
 
   const [menuTabs, setMenuTabs] = useState([
     {
       label: "Original Data",
-      key: "https://dummyjson.com/products?&limit=0",
+      key: getAllDataURL,
     },
   ]);
 
   const [queryOptions, setQueryOptions] = useState([
     {
-      value: "https://dummyjson.com/products?&limit=0",
+      value: getAllDataURL,
       label: "SELECT * FROM api;",
     },
     {
