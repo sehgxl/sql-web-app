@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
-import { Table, Menu, notification, Tag } from "antd";
+import { Table, Menu, notification, Tag, Button, Popover } from "antd";
 import { capitalize } from "lodash";
 import { useQuery } from "react-query";
 import ErrorCard from "./ErrorCard";
-import { CopyOutlined } from "@ant-design/icons";
-import { createContext } from "react";
-
+import { CopyOutlined, DownloadOutlined } from "@ant-design/icons";
+import { createContext, useRef } from "react";
+import { unparse } from "papaparse";
+import useKeyPress from "../custom-hooks/useKeyPress";
 const defaultColumns = ["ID", "Price", "Title", "Brand", "Stock"];
 
 const NotifContext = createContext({
@@ -13,6 +14,10 @@ const NotifContext = createContext({
 });
 
 const DataTable = ({ url, menuTabs, setURL }) => {
+  const downloadBtnRef = useRef();
+
+  useKeyPress(downloadBtnRef);
+
   const addKeyToData = (data) => {
     return data?.map((item) => ({
       key: item.id,
@@ -111,17 +116,38 @@ const DataTable = ({ url, menuTabs, setURL }) => {
     return <ErrorCard error={error} />;
   }
 
+  const csvFormat = data?.products && unparse(data.products);
+  const blob = new Blob(["\ufeff", csvFormat]);
+  const downloadURL = URL.createObjectURL(blob);
+
   return (
     <NotifContext.Provider>
       {notifContextHolder}
       <Table
         title={() => (
-          <Menu
-            onClick={onTabClick}
-            selectedKeys={[url]}
-            mode="horizontal"
-            items={menuTabs}
-          />
+          <div className="flex items-center">
+            <Menu
+              className="flex-grow"
+              onClick={onTabClick}
+              selectedKeys={[url]}
+              mode="horizontal"
+              items={menuTabs}
+            />
+            <Popover
+              placement="bottomRight"
+              content={() => <div>{`\u2325 + d`}</div>}
+            >
+              <Button
+                ref={downloadBtnRef}
+                icon={<DownloadOutlined />}
+                className="flex-grow-0"
+                download={"Data.csv"}
+                href={downloadURL}
+              >
+                Download as CSV
+              </Button>
+            </Popover>
+          </div>
         )}
         scroll={{ x: true, y: "60vh" }}
         pagination={{
