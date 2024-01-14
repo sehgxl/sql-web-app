@@ -138,6 +138,7 @@ const DataTable = ({ url, menuTabs, setURL }) => {
               content={() => <div>{`\u2325 + d`}</div>}
             >
               <Button
+                disabled={isLoading}
                 ref={downloadBtnRef}
                 icon={<DownloadOutlined />}
                 className="flex-grow-0"
@@ -149,7 +150,7 @@ const DataTable = ({ url, menuTabs, setURL }) => {
             </Popover>
           </div>
         )}
-        scroll={{ x: true, y: "60vh" }}
+        scroll={{ x: true, y: "65vh" }}
         pagination={{
           pageSize: 10,
           showSizeChanger: false,
