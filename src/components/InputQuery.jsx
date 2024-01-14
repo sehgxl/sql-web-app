@@ -29,7 +29,7 @@ const InputQuery = ({
     });
   };
 
-  const handleInput = (event) => {
+  const handleCustomQueryInput = (event) => {
     setCustomQueryInput(event.target.value);
   };
 
@@ -88,7 +88,7 @@ const InputQuery = ({
               placeholder="Enter a custom query"
               ref={inputRef}
               value={customQueryInput}
-              onChange={handleInput}
+              onChange={handleCustomQueryInput}
               onKeyDown={(e) => {
                 e.stopPropagation();
                 if (e.key === "Enter") {
