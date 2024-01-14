@@ -13,8 +13,9 @@ const NotifContext = createContext({
   name: "Default",
 });
 
-const DataTable = ({ url, menuTabs, setURL }) => {
+const DataTable = ({ url, menuTabs, setURL, isSelectOpen }) => {
   const downloadBtnRef = useRef();
+
   const keyPressDownload = (event) => {
     if (event.key === "ð") {
       event.preventDefault();
@@ -154,7 +155,7 @@ const DataTable = ({ url, menuTabs, setURL }) => {
             </Popover>
           </div>
         )}
-        scroll={{ x: true, y: "65vh" }}
+        scroll={{ x: true, y: isSelectOpen ? "65vh" : "70vh" }}
         pagination={{
           pageSize: 10,
           showSizeChanger: false,

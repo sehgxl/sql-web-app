@@ -2,6 +2,7 @@
 import { Select, Input, Divider, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { useState, useRef } from "react";
+import useKeyPress from "../custom-hooks/useKeyPress";
 const InputQuery = ({
   url,
   setMenuTabs,
@@ -10,11 +11,18 @@ const InputQuery = ({
   setQueryOptions,
   setProductCount,
   productCount,
+  setIsSelectOpen,
+  isSelectOpen,
 }) => {
   const [customQueryInput, setCustomQueryInput] = useState("");
 
   const inputRef = useRef(null);
 
+  useKeyPress((event) => {
+    if (event.key === "Dead") {
+      setIsSelectOpen((prev) => !prev);
+    }
+  });
   const filterOption = (input, option) =>
     (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
@@ -54,8 +62,13 @@ const InputQuery = ({
 
   return (
     <Select
+      disabled={!isSelectOpen}
       style={{
         width: "100%",
+        height: !isSelectOpen ? "0" : "max-content",
+        opacity: !isSelectOpen ? "0" : "1",
+        transition: "all .2s",
+        visibility: !isSelectOpen ? "hidden" : "visible",
       }}
       value={url}
       options={queryOptions}

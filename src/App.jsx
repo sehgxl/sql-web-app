@@ -8,7 +8,11 @@ const MarginTopSpacer = () => {
 };
 
 const AppWrapper = ({ children }) => {
-  return <section className="h-screen p-5 bg-slate-100">{children}</section>;
+  return (
+    <section className="h-screen p-5 bg-slate-100 flex flex-col ">
+      {children}
+    </section>
+  );
 };
 
 function App() {
@@ -42,6 +46,7 @@ function App() {
   ]);
 
   const [productCount, setProductCount] = useState(10);
+  const [isSelectOpen, setIsSelectOpen] = useState(true);
 
   return (
     <AppWrapper>
@@ -53,9 +58,16 @@ function App() {
         url={url}
         setURL={setURL}
         setMenuTabs={setMenuTabs}
+        isSelectOpen={isSelectOpen}
+        setIsSelectOpen={setIsSelectOpen}
       />
       <MarginTopSpacer />
-      <DataTable url={url} setURL={setURL} menuTabs={menuTabs} />
+      <DataTable
+        isSelectOpen={isSelectOpen}
+        url={url}
+        setURL={setURL}
+        menuTabs={menuTabs}
+      />
     </AppWrapper>
   );
 }
