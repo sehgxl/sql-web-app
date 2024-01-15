@@ -19,7 +19,7 @@ const InputQuery = ({
   const inputRef = useRef(null);
 
   useKeyPress((event) => {
-    if (event.key === "Dead") {
+    if (event.key === "œ") {
       setIsSelectOpen((prev) => !prev);
     }
   });
